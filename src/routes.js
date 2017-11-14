@@ -4,6 +4,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router';
+import jwt from 'jsonwebtoken';
 import App from './components/App';
 import LoginPage from './components/login/LoginPage';
 import HomePage from './components/home/HomePage';
@@ -18,11 +19,27 @@ const Routes = () => (
   </App>
 );
 
-let token = localStorage.getItem('Authorization')
+var loggedIn = () => {
+  let token  = localStorage.getItem('Authorization')
+  let decodedToken = jwt.decode(token, {complete: true})
+  let dateNow = new Date()
+  if (!decodedToken) {
+    return false
+  } else {
+    if (decodedToken.header.exp > (dateNow.getTime() / 1000)) { // hack to remove milliseconds
+      return true
+    } else {
+      return false
+    }
+  }
+}
+const status = loggedIn()
+
+console.log(status)
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    token ? (
+    status ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
