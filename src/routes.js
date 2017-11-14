@@ -8,12 +8,15 @@ import jwt from 'jsonwebtoken';
 import App from './components/App';
 import LoginPage from './components/login/LoginPage';
 import HomePage from './components/home/HomePage';
+import BucketListsPage from './components/bucketlists/BucketListsPage';
+
 
 const Routes = () => (
   <App>
     <Switch>
       <PrivateRoute exact path="/" component={HomePage} />
       <PrivateRoute exact path="/home" component={HomePage} />
+      <PrivateRoute exact path="/bucketlist" component={BucketListsPage} />
       <Route exact path="/login" component={LoginPage} />
     </Switch>
   </App>
