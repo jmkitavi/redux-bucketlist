@@ -36,11 +36,10 @@ var loggedIn = () => {
     }
   }
 }
-const status = loggedIn()
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    status ? (
+    loggedIn() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
@@ -53,7 +52,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const LoginRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    status ? (
+    loggedIn() ? (
       <Redirect to={{
         pathname: '/home',
         state: { from: props.location }
