@@ -16,7 +16,7 @@ const Routes = () => (
     <Switch>
       <PrivateRoute exact path="/" component={HomePage} />
       <PrivateRoute exact path="/home" component={HomePage} />
-      <PrivateRoute exact path="/bucketlist" component={BucketListsPage} />
+      <PrivateRoute exact path="/bucketlists" component={BucketListsPage} />
       <Route exact path="/login" component={LoginPage} />
     </Switch>
   </App>
@@ -37,8 +37,6 @@ var loggedIn = () => {
   }
 }
 const status = loggedIn()
-
-console.log(status)
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
