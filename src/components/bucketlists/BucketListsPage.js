@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Accordion, AccordionItem } from 'react-sanfona';
 
 class BucketListsPage extends React.Component {
   constructor() {
@@ -33,11 +33,25 @@ class BucketListsPage extends React.Component {
   render() {
     return (
       <div className="container">
-        <hr />
-        {this.state.bucketlists.map(function (bucketlist) {
-          return <div>{bucketlist.title}</div>
-        })}
-      </div >
+        <Accordion className="list-group" >
+          {this.state.bucketlists.map(function (bucket) {
+            return (
+              <AccordionItem title={bucket.title} key={bucket.bucketlist_id} className="list-group-item" expandedClassName="active text-center">
+                <div className="text-justify">
+                  <hr />
+                  <div>
+                    Description: {bucket.description}
+                    <br />
+                    Date Created: {bucket.date_created}
+                    <br />
+                    Items: {bucket.items.length}
+                  </div>
+                </div>
+              </AccordionItem>
+            );
+            })}
+        </Accordion>
+      </div>
     );
   }
 }
