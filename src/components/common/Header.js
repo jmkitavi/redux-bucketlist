@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   render() {
     return (
       <nav className="navbar navbar-inverse">
           <ul className="nav navbar-nav">
-            <li><Link to="/" activeClassName="active">Home</Link></li>
-            <li><Link to="/bucketlists" activeClassName="active">Bucket Lists</Link></li>
-            <li><Link to="/login" activeClassName="active">Log in</Link></li>
+            <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
+            <li><NavLink to="/bucketlists" activeClassName="active">Bucket Lists</NavLink></li>
+            <li><NavLink to="/login" activeClassName="active">Log in</NavLink></li>
           </ul>
       </nav>
     )
