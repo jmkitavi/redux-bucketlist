@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import toastr from 'toastr';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -23,9 +24,11 @@ class LoginForm extends React.Component {
     .then(response => {
       localStorage.setItem('Authorization', response.data.Authorization);
       this.props.history.push('/');
+      toastr.success('Login Success');
     })
     .catch(error => {
       console.log(error);
+      toastr.error('Login Failed');
     });
   }
 
