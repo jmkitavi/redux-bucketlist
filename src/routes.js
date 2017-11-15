@@ -17,7 +17,7 @@ const Routes = () => (
       <PrivateRoute exact path="/" component={HomePage} />
       <PrivateRoute exact path="/home" component={HomePage} />
       <PrivateRoute exact path="/bucketlists" component={BucketListsPage} />
-      <Route exact path="/login" component={LoginPage} />
+      <LoginRoute exact path="/login" component={LoginPage} />
     </Switch>
   </App>
 );
@@ -47,6 +47,19 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         pathname: '/login',
         state: { from: props.location }
       }}/>
+    )
+  )}/>
+)
+
+const LoginRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    status ? (
+      <Redirect to={{
+        pathname: '/home',
+        state: { from: props.location }
+      }}/>
+    ) : (
+      <Component {...props}/>
     )
   )}/>
 )
