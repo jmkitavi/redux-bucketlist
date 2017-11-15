@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import toastr from 'toastr';
+import UserAPI from '../../api/userApi';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -16,20 +16,16 @@ class LoginForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
-    const url = 'http://127.0.0.1:5000/auth/login';
-    axios.post(url, {
-      username: this.state.username,
-      password: this.state.password
-    })
-    .then(response => {
-      localStorage.setItem('Authorization', response.data.Authorization);
-      this.props.history.push('/');
-      toastr.success('Login Success');
-    })
-    .catch(error => {
-      console.log(error);
-      toastr.error('Login Failed');
-    });
+    UserAPI.loginUser(this.state.username, this.state.password)
+      .then(response => {
+        localStorage.setItem('Authorization', response.data.Authorization);
+        this.props.history.push('/');
+        toastr.success('Login Success');
+      })
+      .catch(error => {
+        console.log(error);
+        toastr.error('Login Failed');
+      })
   }
 
   handleChange(name, event) {

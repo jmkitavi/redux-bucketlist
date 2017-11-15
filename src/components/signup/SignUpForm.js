@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import toastr from 'toastr';
+import UserAPI from '../../api/userApi';
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -16,28 +16,22 @@ class SignUpForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
-    const url = 'http://127.0.0.1:5000/auth/register';
-    const login_url = 'http://127.0.0.1:5000/auth/login';
-    axios.post(url, {
-      username: this.state.username,
-      password: this.state.password
-    })
-    .then(response => {
-      toastr.success('Sign Up Success');
-      axios.post(login_url, {
-        username: this.state.username,
-        password: this.state.password
+    UserAPI.signUpUser(this.state.username, this.state.password)
+      .then(response => {
+        toastr.success('SignUp Success');
+        UserAPI.loginUser(this.state.username, this.state.password)
+          .then(response2 => {
+            localStorage.setItem('Authorization', response2.data.Authorization);
+            toastr.success('Login Success');
+            this.props.history.push('/');
+          })
+          .catch(error2 => {
+            toastr.error('Login Failed');
+          })
       })
-      .then(response2 => {
-        localStorage.setItem('Authorization', response2.data.Authorization);
-        toastr.success('Logged In Successfully');
-        this.props.history.push('/');
+      .catch(error => {
+        toastr.error('SignUp Failed');
       })
-    })
-    .catch(error => {
-      console.log(error);
-      toastr.error('Sign Up Failed');
-    });
   }
 
   handleChange(name, event) {
