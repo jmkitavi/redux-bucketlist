@@ -6,11 +6,11 @@ import {
 } from 'react-router';
 import jwt from 'jsonwebtoken';
 import App from './components/App';
-import LoginPage from './components/login/LoginPage';
-import SignUpPage from './components/signup/SignUpPage';
 import HomePage from './components/home/HomePage';
+import SignUpPage from './components/user/signup/SignUpPage';
+import LoginPage from './components/user/login/LoginPage';
+import LogOutPage from './components/user/logout/LogOutPage';
 import BucketListsPage from './components/bucketlists/BucketListsPage';
-import LogOutPage from './components/logout/LogOutPage';
 
 
 const Routes = () => (
