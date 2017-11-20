@@ -10,6 +10,7 @@ class Header extends Component {
             <li><NavLink to="/bucketlists" activeClassName="active">Bucket Lists</NavLink></li>
             <li><NavLink to="/login" activeClassName="active">Log in</NavLink></li>
             <li><NavLink to="/signup" activeClassName="active">Sign Up</NavLink></li>
+            <li><NavLink to="/logout" activeClassName="active">Log Out</NavLink></li>
           </ul>
       </nav>
     )

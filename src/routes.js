@@ -10,16 +10,18 @@ import LoginPage from './components/login/LoginPage';
 import SignUpPage from './components/signup/SignUpPage';
 import HomePage from './components/home/HomePage';
 import BucketListsPage from './components/bucketlists/BucketListsPage';
+import LogOutPage from './components/logout/LogOutPage';
 
 
 const Routes = () => (
   <App>
     <Switch>
-      <PrivateRoute exact path="/" component={HomePage} />
-      <PrivateRoute exact path="/home" component={HomePage} />
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/home" component={HomePage} />
       <PrivateRoute exact path="/bucketlists" component={BucketListsPage} />
       <LoginRoute exact path="/login" component={LoginPage} />
       <LoginRoute exact path="/signup" component={SignUpPage} />
+      <PrivateRoute exact path="/logout" component={LogOutPage} />
     </Switch>
   </App>
 );
@@ -48,6 +50,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         pathname: '/login',
         state: { from: props.location }
       }}/>
+      
     )
   )}/>
 )
