@@ -3,7 +3,7 @@ import UserAPI from '../api/userApi';
 
 
 export function checkLoginSuccess(status) {
-  return { type: types.SET_LOGGED_IN_STATUS, status }
+  return { type: types.CHECK_LOGGED_IN_STATUS, status }
 }
 
 export function checkLogin() {
