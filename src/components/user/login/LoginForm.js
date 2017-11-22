@@ -1,7 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import toastr from 'toastr';
 import UserAPI from '../../../api/userApi';
+import * as userActions from '../../../actions/userActions';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -19,12 +22,12 @@ class LoginForm extends React.Component {
     UserAPI.loginUser(this.state.username, this.state.password)
       .then(response => {
         localStorage.setItem('Authorization', response.data.Authorization);
-        this.props.history.push('/');
+        this.props.dispatch(userActions.checkLogin());
         toastr.success('Login Success');
+        return this.props.history.push('/');
       })
       .catch(error => {
-        console.log(error);
-        toastr.error('Login Failed');
+        return toastr.error('Login Failed');
       })
   }
 
@@ -55,4 +58,10 @@ class LoginForm extends React.Component {
   }
 }
 
-export default withRouter(LoginForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(userActions, dispatch)
+  }
+}
+
+export default withRouter(connect(mapDispatchToProps)(LoginForm));
