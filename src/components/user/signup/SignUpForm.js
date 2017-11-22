@@ -18,19 +18,16 @@ class SignUpForm extends React.Component {
     event.preventDefault();
     UserAPI.signUpUser(this.state.username, this.state.password)
       .then(response => {
-        toastr.success('SignUp Success');
-        UserAPI.loginUser(this.state.username, this.state.password)
-          .then(response2 => {
-            localStorage.setItem('Authorization', response2.data.Authorization);
-            toastr.success('Login Success');
-            this.props.history.push('/');
-          })
-          .catch(error2 => {
-            toastr.error('Login Failed');
-          })
+        if (response.status !== 201) {
+          return toastr.error(response.data.error);
+        } else {
+          toastr.success('SignUp Success')
+          this.props.history.push('/login');
+          return toastr.info('Please Login');
+        }
       })
       .catch(error => {
-        toastr.error('SignUp Failed');
+        return toastr.error('SignUp Failed');
       })
   }
 
