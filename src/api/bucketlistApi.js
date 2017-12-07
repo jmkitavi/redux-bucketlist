@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-const config = {
-  headers: { 'Authorization': `token ${localStorage.getItem("Authorization")}`}
-};
+let config = () => {
+  var token = { headers: { 'Authorization': `token ${localStorage.getItem("Authorization")}`} }
+  return token
+}
 const url = 'http://127.0.0.1:5000/bucketlists/';
 
 class BucketlistAPI {
   static fetchBucketlists() {
-    return axios.get(url, config)
+    return axios.get(url, config())
     .then(response => {
       return response.data.bucketlists
     })
