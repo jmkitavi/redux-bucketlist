@@ -10,6 +10,7 @@ class LogOutPage extends React.Component {
   componentWillMount () {
     localStorage.clear()
     this.props.dispatch(userActions.checkLogin());
+    this.props.dispatch(userActions.logOut())
     toastr.success('Log Out Success');
     return this.props.history.push('/');
   }

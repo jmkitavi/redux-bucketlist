@@ -3,7 +3,10 @@ import initialState from './initialState';
 
 export default function bucketlistReducer(state = initialState.bucketlists, action) {
   switch(action.type) {
-    case types.FETCH_BUCKETLISTS:
+    case types.USER_LOGOUT:
+      state = []
+      return state;
+
       return action.bucketlists;
 
     default:
