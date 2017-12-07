@@ -16,6 +16,16 @@ class BucketlistAPI {
       console.log(error);
     });
   }
+
+  static deleteBucketlist(bucketlist_id) {
+    return axios.delete(url + bucketlist_id, config())
+    .then(response => {
+      return response
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 }
 
 export default BucketlistAPI;

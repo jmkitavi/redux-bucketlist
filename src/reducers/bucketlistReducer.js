@@ -10,6 +10,9 @@ export default function bucketlistReducer(state = initialState.bucketlists, acti
     case types.FETCH_BUCKETLISTS_SUCCESS:
       return action.bucketlists;
 
+    case types.DELETE_BUCKETLIST_SUCCESS:
+      return state.filter(bucketlist => bucketlist.bucketlist_id !== action.bucketlist_id)
+
     default:
       return state;
   }
