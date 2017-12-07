@@ -1,55 +1,84 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Accordion, AccordionItem } from 'react-sanfona';
+import {browserHistory} from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import moment from 'moment';
+import { Button } from 'react-bootstrap';
+
 import * as bucketlistActions from '../../actions/bucketlistActions';
 
-
 class BucketListsPage extends React.Component {
+  constructor() {
+    super();
+    this.deleteBucketlist = this.deleteBucketlist.bind(this)
+  }
+
   componentDidMount() {
-    this.props.dispatch(bucketlistActions.fetchBucketlists());
+    this.props.actions.fetchBucketlists();
+  }
+
+  deleteBucketlist(bucketlist_id) {
+    this.props.actions.deleteBucketlist(bucketlist_id);
   }
 
   render() {
-    console.log(this.props)
-    if (!this.props.bucketlists) {
-      return (
-        <div>Not found</div>
-      )
-    }
+    const { bucketlists } = this.props;
+
     return (
-      <div className="container">
-        <Accordion className="list-group" >
-          {this.props.bucketlists.map(function (bucket) {
-            return (
-              <AccordionItem title={bucket.title} key={bucket.bucketlist_id} className="list-group-item" expandedClassName="active text-center">
-                <div className="text-justify">
-                  <hr />
-                  <div>
-                    Description: {bucket.description}
-                    <br />
-                    Date Created: {bucket.date_created}
-                    <br />
-                    Items: {bucket.items.length}
-                  </div>
-                </div>
-              </AccordionItem>
-            );
-            })}
-        </Accordion>
+      <div>
+        <h1>Bucketlists</h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Created</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bucketlists.map(bucketlist =>
+              <tr key={bucketlist.bucketlist_id}>
+                <td>{bucketlist.title}</td>
+                <td>{moment(bucketlist.date_created).format('ll')}</td>
+                <td>
+                <Button
+                    bsStyle="danger"
+                    bsSize="small"
+                    onClick={() => this.deleteBucketlist(bucketlist.bucketlist_id)}>
+                    Delete
+                </Button>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     );
+
   }
 }
 
-BucketListsPage.PropTypes = {
-  bucketlists: PropTypes.array.isRequired
-}
+// Props Validation
+BucketListsPage.propTypes = {
+  bucketlists: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
 
+// mapping state to props
 function mapStateToProps(state, ownProps) {
   return {
     bucketlists: state.bucketlists
-  }
+  };
 }
 
-export default connect(mapStateToProps)(BucketListsPage);
+// mapping actions to props
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(bucketlistActions, dispatch)
+  };
+}
+
+// connect to redux
+export default connect(mapStateToProps, mapDispatchToProps)(BucketListsPage);
