@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
-import { Button } from 'react-bootstrap';
+import toastr from 'toastr';
 
 import * as bucketlistActions from '../../actions/bucketlistActions';
 
@@ -19,8 +19,10 @@ class BucketListsPage extends React.Component {
     this.props.actions.fetchBucketlists();
   }
 
-  deleteBucketlist(bucketlist_id) {
-    this.props.actions.deleteBucketlist(bucketlist_id);
+  deleteBucketlist(bucketlist) {
+    this.props.actions.deleteBucketlist(bucketlist.bucketlist_id).then(() => {
+      toastr.success(`BucketList ${bucketlist.title} deleted successfully`)
+    })
   }
 
   render() {
@@ -46,7 +48,7 @@ class BucketListsPage extends React.Component {
                 <Button
                     bsStyle="danger"
                     bsSize="small"
-                    onClick={() => this.deleteBucketlist(bucketlist.bucketlist_id)}>
+                        onClick={() => this.deleteBucketlist(bucketlist)}>
                     Delete
                 </Button>
                 </td>
