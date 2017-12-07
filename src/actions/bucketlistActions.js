@@ -3,7 +3,7 @@ import BucketlistAPI from '../api/bucketlistApi';
 
 
 export function fetchBucketlistsSuccess(bucketlists) {
-  return { type: types.FETCH_BUCKETLISTS, bucketlists}
+  return { type: types.FETCH_BUCKETLISTS_SUCCESS, bucketlists}
 }
 
 export function fetchBucketlists() {
