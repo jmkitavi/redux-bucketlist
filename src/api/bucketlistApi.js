@@ -26,6 +26,17 @@ class BucketlistAPI {
       console.log(error);
     })
   }
+
+  static saveBucketlist(bucketlist) {
+    return axios.post(url, bucketlist, config())
+    .then(response => {
+      console.log("api", response)
+      return response
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 }
 
 export default BucketlistAPI;

@@ -10,6 +10,12 @@ export default function bucketlistReducer(state = initialState.bucketlists, acti
     case types.FETCH_BUCKETLISTS_SUCCESS:
       return action.bucketlists;
 
+    case types.SAVE_BUCKETLIST_SUCCESS:
+      return [
+        ...state,
+        Object.assign({}, action.bucketlist)
+      ];
+
     case types.DELETE_BUCKETLIST_SUCCESS:
       return state.filter(bucketlist => bucketlist.bucketlist_id !== action.bucketlist_id)
 
