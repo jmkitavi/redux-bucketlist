@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {browserHistory} from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -18,12 +17,20 @@ class BucketListsPage extends React.Component {
       showModal: false
     };
     this.deleteBucketlist = this.deleteBucketlist.bind(this)
+    this.saveBucketlist = this.saveBucketlist.bind(this)
     this.closeModal = this.closeModal.bind(this);
     this.open = this.open.bind(this);
   }
 
   componentDidMount() {
     this.props.actions.fetchBucketlists();
+  }
+
+  saveBucketlist(bucketlist) {
+    console.log("BucketListPage", bucketlist)
+    this.props.actions.saveBucketlist(bucketlist).then(() => {
+      toastr.success(`BucketList ${bucketlist.title} added successfully`)
+    })
   }
 
   deleteBucketlist(bucketlist) {
@@ -63,12 +70,12 @@ class BucketListsPage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {bucketlists.map(bucketlist =>
+            {bucketlists.slice(0).reverse().map((bucketlist) =>
               <tr key={bucketlist.bucketlist_id}>
                 <td>{bucketlist.title}</td>
                 <td>{moment(bucketlist.date_created).format('ll')}</td>
                 <td>
-                <Button
+                  <Button
                       bsStyle="info"
                       bsSize="small"
                       onClick={() => console.log("View Items", bucketlist)}>
@@ -84,11 +91,11 @@ class BucketListsPage extends React.Component {
                         Edit
                     </Button>
                     <Button
-                    bsStyle="danger"
-                    bsSize="small"
+                        bsStyle="danger"
+                        bsSize="small"
                         onClick={() => this.deleteBucketlist(bucketlist)}>
-                    Delete
-                </Button>
+                        Delete
+                    </Button>
                   </ButtonToolbar>
                 </td>
               </tr>
