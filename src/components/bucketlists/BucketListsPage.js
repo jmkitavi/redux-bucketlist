@@ -6,13 +6,20 @@ import { connect } from 'react-redux';
 
 import moment from 'moment';
 import toastr from 'toastr';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 import * as bucketlistActions from '../../actions/bucketlistActions';
+import CreateBucketList from './CreateBucketList';
 
 class BucketListsPage extends React.Component {
   constructor() {
     super();
+    this.state = {
+      showModal: false
+    };
     this.deleteBucketlist = this.deleteBucketlist.bind(this)
+    this.closeModal = this.closeModal.bind(this);
+    this.open = this.open.bind(this);
   }
 
   componentDidMount() {
@@ -25,12 +32,28 @@ class BucketListsPage extends React.Component {
     })
   }
 
+  closeModal() {
+    this.setState({showModal: false})
+  }
+
+  open() {
+    this.setState({showModal: true })
+  }
+
   render() {
     const { bucketlists } = this.props;
+    let close = () => this.closeModal()
 
     return (
       <div>
         <h1>Bucketlists</h1>
+        <Button
+          bsStyle="primary"
+          bsSize="small"
+          onClick={() => this.open()}>
+          Add BucketList
+        </Button>
+        <CreateBucketList showModal={this.state.showModal} closeModal={close} saveBucketlist={this.saveBucketlist}/>
         <table className="table">
           <thead>
             <tr>
@@ -46,11 +69,27 @@ class BucketListsPage extends React.Component {
                 <td>{moment(bucketlist.date_created).format('ll')}</td>
                 <td>
                 <Button
+                      bsStyle="info"
+                      bsSize="small"
+                      onClick={() => console.log("View Items", bucketlist)}>
+                      View Items
+                  </Button>
+                </td>
+                <td>
+                  <ButtonToolbar>
+                    <Button
+                        bsStyle="warning"
+                        bsSize="small"
+                        onClick={() => console.log("Edit Bucketlist", bucketlist)}>
+                        Edit
+                    </Button>
+                    <Button
                     bsStyle="danger"
                     bsSize="small"
                         onClick={() => this.deleteBucketlist(bucketlist)}>
                     Delete
                 </Button>
+                  </ButtonToolbar>
                 </td>
               </tr>
             )}

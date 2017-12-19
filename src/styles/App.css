@@ -35,4 +35,9 @@
 
 .app-container {
   width: 75%;
+  margin: auto;
+}
+.modal-title {
+  text-align: center;
+  font-weight: bold;
 }
