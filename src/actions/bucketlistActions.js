@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import * as types from './actionTypes';
 import BucketlistAPI from '../api/bucketlistApi';
 
@@ -23,19 +24,19 @@ export function fetchBucketlists() {
 }
 
 export function saveBucketlist(bucketlist) {
-  console.log("ACTIONS", bucketlist)
   return dispatch => {
     return BucketlistAPI.saveBucketlist(bucketlist).then(savedBucketlist => {
-      console.log("action ater api", bucketlist)
+      toastr.success(`BucketList ${bucketlist.title} added successfully`)
       dispatch(saveBucketlistSuccess(bucketlist))
     }).catch(error => console.log(error))
   }
 }
 
-export function deleteBucketlist(bucketlist_id) {
+export function deleteBucketlist(bucketlist) {
   return dispatch => {
-    return BucketlistAPI.deleteBucketlist(bucketlist_id).then(response => {
-      dispatch(deleteBucketlistSuccess(bucketlist_id))
+    return BucketlistAPI.deleteBucketlist(bucketlist.bucketlist_id).then(response => {
+      toastr.success(`BucketList ${bucketlist.title} deleted successfully`)
+      dispatch(deleteBucketlistSuccess(bucketlist.bucketlist_id))
     }).catch(error => console.log(error))
   }
 }

@@ -27,16 +27,12 @@ class BucketListsPage extends React.Component {
   }
 
   saveBucketlist(bucketlist) {
-    console.log("BucketListPage", bucketlist)
-    this.props.actions.saveBucketlist(bucketlist).then(() => {
-      toastr.success(`BucketList ${bucketlist.title} added successfully`)
+    this.props.actions.saveBucketlist(bucketlist).then((response) => {
     })
   }
 
   deleteBucketlist(bucketlist) {
-    this.props.actions.deleteBucketlist(bucketlist.bucketlist_id).then(() => {
-      toastr.success(`BucketList ${bucketlist.title} deleted successfully`)
-    })
+    this.props.actions.deleteBucketlist(bucketlist)
   }
 
   closeModal() {
