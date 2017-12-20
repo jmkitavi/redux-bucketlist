@@ -26,8 +26,8 @@ class CreateBucketList extends React.Component {
     return this.props.closeModal()
   }
 
-  mySave() {
-    console.log("On Save", this.state.bucketlist)
+  mySave(event) {
+    event.preventDefault();
     this.props.saveBucketlist(this.state.bucketlist)
     this.props.closeModal()
   }
@@ -41,7 +41,7 @@ class CreateBucketList extends React.Component {
             <Modal.Title className="modal-title">Add BucketList</Modal.Title>
           </Modal.Header>
           <Modal.Body className="app-container">
-          <form>
+          <form onSubmit={this.mySave} >
             <div className="form-group">
               <label htmlFor="Title" className="control-label">Title</label>
               <input type="title" name="title" className="form-control" placeholder="Enter Title" onChange={this.onChange} required /> 
@@ -50,14 +50,14 @@ class CreateBucketList extends React.Component {
               <label htmlFor="Description">Description</label>
               <input type="text" name="description" className="form-control"  placeholder="Description" onChange={this.onChange} />
             </div>
-          </form>
-          </Modal.Body>
-          <Modal.Footer>
+            <div>
+            
+            <Modal.Footer>
             <ButtonToolbar>
               <Button
+                type="submit"
                 bsSize="small"
-                bsStyle="info"
-                onClick={this.mySave}>
+                bsStyle="info">
                 Save
               </Button>
               <Button
@@ -68,6 +68,10 @@ class CreateBucketList extends React.Component {
               </Button>
             </ButtonToolbar>
           </Modal.Footer>
+            </div>
+          </form>
+          </Modal.Body>
+          
         </Modal>
       </div>
     );
