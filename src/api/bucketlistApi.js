@@ -30,11 +30,21 @@ class BucketlistAPI {
   static saveBucketlist(bucketlist) {
     return axios.post(url, bucketlist, config())
     .then(response => {
-      console.log("api", response)
       return response
     })
     .catch(error => {
-      console.log(error);
+      return error
+    })
+  }
+
+  static editBucketlist(bucketlist) {
+    const editUrl = url + bucketlist.bucketlist_id
+    return axios.put(editUrl, bucketlist, config())
+    .then(response => {
+      return response
+    })
+    .catch(error => {
+      return error;
     })
   }
 }

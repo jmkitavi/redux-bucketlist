@@ -1,25 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
-import toastr from 'toastr';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 
 import * as bucketlistActions from '../../actions/bucketlistActions';
 import CreateBucketList from './CreateBucketList';
+import EditModal from './EditModal';
 
 class BucketListsPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      showModal: false
+      showModal: false,
+      showEditModal: false,
+      editBucketlist: {}
     };
-    this.deleteBucketlist = this.deleteBucketlist.bind(this)
     this.saveBucketlist = this.saveBucketlist.bind(this)
+    this.editBucketlist = this.editBucketlist.bind(this)
+    this.deleteBucketlist = this.deleteBucketlist.bind(this)
     this.closeModal = this.closeModal.bind(this);
-    this.open = this.open.bind(this);
+    this.renderModal = this.renderModal.bind(this);
+    this.openAdd = this.openAdd.bind(this);
+    this.openEdit = this.openEdit.bind(this);
   }
 
   componentDidMount() {
@@ -31,32 +37,55 @@ class BucketListsPage extends React.Component {
     })
   }
 
+  editBucketlist(bucketlist) {
+    this.props.actions.editBucketlist(bucketlist)
+  }
+
   deleteBucketlist(bucketlist) {
     this.props.actions.deleteBucketlist(bucketlist)
   }
 
   closeModal() {
-    this.setState({showModal: false})
+    this.setState({
+      showModal: false,
+      showEditModal: false
+    })
   }
 
-  open() {
+  openAdd() {
     this.setState({showModal: true })
   }
 
-  render() {
-    const { bucketlists } = this.props;
-    let close = () => this.closeModal()
+  openEdit(bucketlist) {
+    this.setState({
+      showEditModal: true,
+      editBucketlist: bucketlist
+    })
+  }
 
+  renderEditModal() {
+    return (
+      <EditModal showModal={this.state.showEditModal} closeModal={this.closeModal} editFunc={this.editBucketlist} editBucketlist={this.state.editBucketlist}/>
+    );
+  }
+
+  renderModal() {
+    return (
+      <CreateBucketList showModal={this.state.showModal} closeModal={this.closeModal} saveBucketlist={this.saveBucketlist}/>
+    );
+  }
+
+  render() {
     return (
       <div>
         <h1>Bucketlists</h1>
         <Button
           bsStyle="primary"
           bsSize="small"
-          onClick={() => this.open()}>
+          onClick={() => this.openAdd()}>
           Add BucketList
         </Button>
-        <CreateBucketList showModal={this.state.showModal} closeModal={close} saveBucketlist={this.saveBucketlist}/>
+        { this.renderModal() }
         <table className="table">
           <thead>
             <tr>
@@ -66,7 +95,7 @@ class BucketListsPage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {bucketlists.slice(0).reverse().map((bucketlist) =>
+            {this.props.bucketlists.slice(0).reverse().map((bucketlist) =>
               <tr key={bucketlist.bucketlist_id}>
                 <td>{bucketlist.title}</td>
                 <td>{moment(bucketlist.date_created).format('ll')}</td>
@@ -83,7 +112,7 @@ class BucketListsPage extends React.Component {
                     <Button
                         bsStyle="warning"
                         bsSize="small"
-                        onClick={() => console.log("Edit Bucketlist", bucketlist)}>
+                        onClick={() => this.openEdit(bucketlist)}>
                         Edit
                     </Button>
                     <Button
@@ -96,6 +125,9 @@ class BucketListsPage extends React.Component {
                 </td>
               </tr>
             )}
+            {this.state.showEditModal &&
+              this.renderEditModal()
+            }
           </tbody>
         </table>
       </div>
@@ -125,4 +157,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // connect to redux
-export default connect(mapStateToProps, mapDispatchToProps)(BucketListsPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BucketListsPage));
