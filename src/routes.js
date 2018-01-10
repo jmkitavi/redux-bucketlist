@@ -6,7 +6,6 @@ import {
 } from 'react-router';
 import jwt from 'jsonwebtoken';
 import App from './components/App';
-import HomePage from './components/home/HomePage';
 import SignUpPage from './components/user/signup/SignUpPage';
 import LoginPage from './components/user/login/LoginPage';
 import LogOutPage from './components/user/logout/LogOutPage';
@@ -16,9 +15,8 @@ import BucketListsPage from './components/bucketlists/BucketListsPage';
 const Routes = () => (
   <App>
     <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route exact path="/home" component={HomePage} />
-      <PrivateRoute exact path="/bucketlists" component={BucketListsPage} />
+      <PrivateRoute exact path="/" component={BucketListsPage} />
+      <PrivateRoute exact path="/home" component={BucketListsPage} />
       <LoginRoute exact path="/login" component={LoginPage} />
       <LoginRoute exact path="/signup" component={SignUpPage} />
       <PrivateRoute exact path="/logout" component={LogOutPage} />
