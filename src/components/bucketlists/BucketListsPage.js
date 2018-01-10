@@ -9,7 +9,7 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 
 import * as bucketlistActions from '../../actions/bucketlistActions';
 import CreateBucketList from './CreateBucketList';
-import EditModal from './EditModal';
+import EditBucketList from './EditBucketList';
 
 class BucketListsPage extends React.Component {
   constructor() {
@@ -23,7 +23,7 @@ class BucketListsPage extends React.Component {
     this.editBucketlist = this.editBucketlist.bind(this)
     this.deleteBucketlist = this.deleteBucketlist.bind(this)
     this.closeModal = this.closeModal.bind(this);
-    this.renderModal = this.renderModal.bind(this);
+    this.renderCreateModal = this.renderCreateModal.bind(this);
     this.openAdd = this.openAdd.bind(this);
     this.openEdit = this.openEdit.bind(this);
   }
@@ -63,15 +63,15 @@ class BucketListsPage extends React.Component {
     })
   }
 
-  renderEditModal() {
+  renderCreateModal() {
     return (
-      <EditModal showModal={this.state.showEditModal} closeModal={this.closeModal} editFunc={this.editBucketlist} editBucketlist={this.state.editBucketlist}/>
+      <CreateBucketList showModal={this.state.showModal} closeModal={this.closeModal} saveBucketlist={this.saveBucketlist}/>
     );
   }
 
-  renderModal() {
+  renderEditModal() {
     return (
-      <CreateBucketList showModal={this.state.showModal} closeModal={this.closeModal} saveBucketlist={this.saveBucketlist}/>
+      <EditBucketList showModal={this.state.showEditModal} closeModal={this.closeModal} editFunc={this.editBucketlist} editBucketlist={this.state.editBucketlist}/>
     );
   }
 
@@ -85,7 +85,7 @@ class BucketListsPage extends React.Component {
           onClick={() => this.openAdd()}>
           Add BucketList
         </Button>
-        { this.renderModal() }
+        { this.renderCreateModal() }
         <table className="table">
           <thead>
             <tr>

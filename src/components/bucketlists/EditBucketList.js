@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonToolbar, Button, Modal } from 'react-bootstrap';
 
-class EditModal extends React.Component {
+class EditBucketList extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -80,11 +80,11 @@ class EditModal extends React.Component {
   }
 }
 
-EditModal.PropTypes = {
+EditBucketList.PropTypes = {
   showModal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   editFunc: PropTypes.func.isRequired,
   editBucketlist: PropTypes.object.isRequired
 }
 
-export default EditModal;
+export default EditBucketList;
