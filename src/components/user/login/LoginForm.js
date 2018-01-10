@@ -40,17 +40,17 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="login">
-        <form>
+        <form onSubmit={this.handleSubmit} >
           <div className="form-group">
             <label htmlFor="Username" className="control-label">User Name</label>
-            <input value={this.state.username} type="username" name="username" className="form-control" placeholder="Enter username" onChange={this.handleChange.bind(this, "username")} /> 
+            <input value={this.state.username} type="username" name="username" className="form-control" placeholder="Enter username" onChange={this.handleChange.bind(this, "username")} required /> 
           </div>
           <div className="form-group">
             <label htmlFor="Password">Password</label>
-            <input  value={this.state.password} type="password" name="password" className="form-control"  placeholder="Password" onChange={this.handleChange.bind(this, "password")} />
+            <input  value={this.state.password} type="password" name="password" className="form-control"  placeholder="Password" onChange={this.handleChange.bind(this, "password")} required />
           </div>
           <div className="form-group">
-            <input type="button" onClick={this.handleSubmit} className="form-control" value="Login"/>
+            <input type="submit" className="form-control" value="Login"/>
           </div>
         </form>
       </div>
