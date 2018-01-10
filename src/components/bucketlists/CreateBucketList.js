@@ -9,12 +9,12 @@ class CreateBucketList extends React.Component {
       showModal: false,
       bucketlist: {}
     };
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.myClose =  this.myClose.bind(this);
     this.mySave =  this.mySave.bind(this);
   }
 
-  onChange(event) {
+  handleChange(event) {
     const field = event.target.name;
     let bucketlist = this.state.bucketlist;
     bucketlist[field] = event.target.value;
@@ -33,10 +33,9 @@ class CreateBucketList extends React.Component {
   }
 
   render() {
-    const { showModal } = this.props;
     return (
       <div>
-        <Modal show={showModal} onHide={this.myClose}>
+        <Modal show={this.props.showModal} onHide={this.myClose}>
           <Modal.Header closeButton>
             <Modal.Title className="modal-title">Add BucketList</Modal.Title>
           </Modal.Header>
@@ -44,11 +43,11 @@ class CreateBucketList extends React.Component {
           <form onSubmit={this.mySave} >
             <div className="form-group">
               <label htmlFor="Title" className="control-label">Title</label>
-              <input type="title" name="title" className="form-control" placeholder="Enter Title" onChange={this.onChange} required /> 
+              <input type="title" name="title" className="form-control" placeholder="Enter Title" onChange={this.handleChange} required /> 
             </div>
             <div className="form-group">
               <label htmlFor="Description">Description</label>
-              <input type="text" name="description" className="form-control"  placeholder="Description" onChange={this.onChange} />
+              <input type="text" name="description" className="form-control"  placeholder="Description" onChange={this.handleChange} />
             </div>
             <div>
             
