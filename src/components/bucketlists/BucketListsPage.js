@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, Badge } from 'react-bootstrap';
 
 import * as bucketlistActions from '../../actions/bucketlistActions';
 import CreateBucketList from './CreateBucketList';
@@ -37,8 +36,7 @@ class BucketListsPage extends React.Component {
   }
 
   saveBucketlist(bucketlist) {
-    this.props.actions.saveBucketlist(bucketlist).then((response) => {
-    })
+    this.props.actions.saveBucketlist(bucketlist)
   }
 
   editBucketlist(bucketlist) {
@@ -77,7 +75,10 @@ class BucketListsPage extends React.Component {
 
   renderCreateModal() {
     return (
-      <CreateBucketList showModal={this.state.showModal} closeModal={this.closeModal} saveBucketlist={this.saveBucketlist}/>
+      <CreateBucketList
+        showModal={this.state.showModal}
+        closeModal={this.closeModal}
+        saveBucketlist={this.saveBucketlist}/>
     );
   }
 
@@ -94,7 +95,11 @@ class BucketListsPage extends React.Component {
 
   renderEditModal() {
     return (
-      <EditBucketList showModal={this.state.showEditModal} closeModal={this.closeModal} editFunc={this.editBucketlist} editBucketlist={this.state.editBucketlist}/>
+      <EditBucketList
+        showModal={this.state.showEditModal}
+        closeModal={this.closeModal}
+        editFunc={this.editBucketlist}
+        editBucketlist={this.state.editBucketlist}/>
     );
   }
 
@@ -106,7 +111,7 @@ class BucketListsPage extends React.Component {
           bsStyle="primary"
           bsSize="small"
           onClick={() => this.openAdd()}>
-          Add BucketList
+          <span className="glyphicon glyphicon-plus"></span> Add BucketList
         </Button>
         { this.renderCreateModal() }
         <table className="table">
@@ -120,28 +125,27 @@ class BucketListsPage extends React.Component {
           <tbody>
             {this.props.bucketlists.slice(0).reverse().map((bucketlist) =>
               <tr key={bucketlist.bucketlist_id}>
-                <td>{bucketlist.title}</td>
+                <td>{bucketlist.title} <Badge>{ bucketlist.items.length}</Badge></td>
                 <td>{moment(bucketlist.date_created).format('ll')}</td>
-                <td>
-                  <Button
-                      bsStyle="info"
-                      bsSize="small"
-                        onClick={() => this.openView(bucketlist)}>
-                  </Button>
-                </td>
-                <td>
+                <td className="pull-right">
                   <ButtonToolbar>
+                    <Button
+                        bsStyle="info"
+                        bsSize="small"
+                        onClick={() => this.openView(bucketlist)}>
+                        <span className="glyphicon glyphicon-eye-open"></span> View Items
+                    </Button>
                     <Button
                         bsStyle="warning"
                         bsSize="small"
                         onClick={() => this.openEdit(bucketlist)}>
-                        Edit
+                        <span className="glyphicon glyphicon-pencil"></span> Edit
                     </Button>
                     <Button
                         bsStyle="danger"
                         bsSize="small"
                         onClick={() => this.deleteBucketlist(bucketlist)}>
-                        Delete
+                        <span className="glyphicon glyphicon-trash"></span> Delete
                     </Button>
                   </ButtonToolbar>
                 </td>
@@ -182,4 +186,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // connect to redux
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BucketListsPage));
+export default connect(mapStateToProps, mapDispatchToProps)(BucketListsPage);
