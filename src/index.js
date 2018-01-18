@@ -7,6 +7,7 @@ import Routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
+import '../node_modules/react-bootstrap-toggle/dist/bootstrap2-toggle.css';
 import './styles/index.css';
 
 import { checkLogin } from './actions/userActions';

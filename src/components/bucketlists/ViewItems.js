@@ -4,9 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import Toggle from 'material-ui/Toggle';
+import Toggle from 'react-bootstrap-toggle';
+
 
 import * as itemActions from '../../actions/itemActions';
 
@@ -28,10 +27,6 @@ class ViewItems extends React.Component {
     this.editItem = this.editItem.bind(this);
     this.cancelEdit = this.cancelEdit.bind(this);
     this.saveEdited = this.saveEdited.bind(this);
-  }
-
-  getChildContext() {
-    return { muiTheme: getMuiTheme(baseTheme) };
   }
 
   // handleChange event in form
@@ -101,13 +96,15 @@ class ViewItems extends React.Component {
       return items.slice(0).reverse().map(item => 
         <tbody key={item.item_id}>
           <tr>
+            <td>{item.item_name}</td>
             <td>
-              <Toggle
-                label={item.item_name}
-                labelPosition="left"
-                defaultToggled={item.status}
-                onToggle={() => this.toggleItem(item)}
-              />
+            <Toggle
+              on={"DONE"}
+              off={"PENDING"}
+              onstyle="success"
+              offstyle="warning"
+              active={item.status}
+              onClick={() => this.toggleItem(item)}/>
             </td>
             <td className="pull-right">
               <ButtonToolbar>
@@ -189,10 +186,6 @@ ViewItems.PropTypes = {
   viewBucketlist: PropTypes.object.isRequired,
   deleteItem: PropTypes.func.isRequired
 }
-
-ViewItems.childContextTypes = {
-  muiTheme: PropTypes.object.isRequired
-};
 
 // mapping actions to props
 function mapDispatchToProps(dispatch) {
