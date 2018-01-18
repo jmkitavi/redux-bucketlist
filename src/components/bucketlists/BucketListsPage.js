@@ -10,6 +10,7 @@ import { Button, ButtonToolbar } from 'react-bootstrap';
 import * as bucketlistActions from '../../actions/bucketlistActions';
 import CreateBucketList from './CreateBucketList';
 import EditBucketList from './EditBucketList';
+import ViewItems from './ViewItems';
 
 class BucketListsPage extends React.Component {
   constructor() {
@@ -17,7 +18,9 @@ class BucketListsPage extends React.Component {
     this.state = {
       showModal: false,
       showEditModal: false,
-      editBucketlist: {}
+      showViewModal: false,
+      editBucketlist: {},
+      viewBucketlist: {}
     };
     this.saveBucketlist = this.saveBucketlist.bind(this)
     this.editBucketlist = this.editBucketlist.bind(this)
@@ -26,6 +29,7 @@ class BucketListsPage extends React.Component {
     this.renderCreateModal = this.renderCreateModal.bind(this);
     this.openAdd = this.openAdd.bind(this);
     this.openEdit = this.openEdit.bind(this);
+    this.openView = this.openView.bind(this);
   }
 
   componentDidMount() {
@@ -48,12 +52,20 @@ class BucketListsPage extends React.Component {
   closeModal() {
     this.setState({
       showModal: false,
+      showViewModal: false,
       showEditModal: false
     })
   }
 
   openAdd() {
     this.setState({showModal: true })
+  }
+
+  openView(bucketlist) {
+    this.setState({
+      showViewModal: true,
+      viewBucketlist: bucketlist.bucketlist_id
+    })
   }
 
   openEdit(bucketlist) {
@@ -67,6 +79,17 @@ class BucketListsPage extends React.Component {
     return (
       <CreateBucketList showModal={this.state.showModal} closeModal={this.closeModal} saveBucketlist={this.saveBucketlist}/>
     );
+  }
+
+  renderViewModal() {
+    const bucketlist = this.props.bucketlists.find(bucketlist => bucketlist.bucketlist_id === this.state.viewBucketlist)
+    return (
+      <ViewItems
+        showModal={this.state.showViewModal}
+        closeModal={this.closeModal}
+        viewBucketlist={bucketlist}
+        deleteItem={this.deleteItem}/>
+    )
   }
 
   renderEditModal() {
@@ -103,8 +126,7 @@ class BucketListsPage extends React.Component {
                   <Button
                       bsStyle="info"
                       bsSize="small"
-                      onClick={() => console.log("View Items", bucketlist)}>
-                      View Items
+                        onClick={() => this.openView(bucketlist)}>
                   </Button>
                 </td>
                 <td>
@@ -127,6 +149,9 @@ class BucketListsPage extends React.Component {
             )}
             {this.state.showEditModal &&
               this.renderEditModal()
+            }
+            { this.state.showViewModal &&
+              this.renderViewModal()
             }
           </tbody>
         </table>
