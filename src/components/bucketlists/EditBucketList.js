@@ -6,7 +6,6 @@ class EditBucketList extends React.Component {
   constructor() {
     super();
     this.state = {
-      showModal: false,
       editBucketlist: {}
     };
     this.handleChange = this.handleChange.bind(this);
@@ -52,7 +51,7 @@ class EditBucketList extends React.Component {
               </div>
               <div className="form-group">
                 <label htmlFor="Description">Description</label>
-                <input value={this.state.editBucketlist.description} type="text" name="description" className="form-control"  placeholder="Description" onChange={(event) => this.handleChange("description", event)} />
+                <textarea value={this.state.editBucketlist.description} name="description" className="form-control"  placeholder="Description" onChange={(event) => this.handleChange("description", event)} />
               </div>
 
               <Modal.Footer>

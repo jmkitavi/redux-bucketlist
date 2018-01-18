@@ -6,7 +6,6 @@ class CreateBucketList extends React.Component {
   constructor() {
     super();
     this.state = {
-      showModal: false,
       bucketlist: {}
     };
     this.handleChange = this.handleChange.bind(this);
@@ -47,7 +46,7 @@ class CreateBucketList extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="Description">Description</label>
-              <input type="text" name="description" className="form-control"  placeholder="Description" onChange={this.handleChange} />
+              <textarea type="text" name="description" className="form-control"  placeholder="Description" onChange={this.handleChange} />
             </div>
             <div>
             
