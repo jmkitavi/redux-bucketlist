@@ -7,8 +7,7 @@ import moment from 'moment';
 import { Button, ButtonToolbar, Badge } from 'react-bootstrap';
 
 import * as bucketlistActions from '../../actions/bucketlistActions';
-import CreateBucketList from './CreateBucketList';
-import EditBucketList from './EditBucketList';
+import BucketListModal from './BucketListModal';
 import ViewItems from './ViewItems';
 
 class BucketListsPage extends React.Component {
@@ -75,10 +74,24 @@ class BucketListsPage extends React.Component {
 
   renderCreateModal() {
     return (
-      <CreateBucketList
+      <BucketListModal
         showModal={this.state.showModal}
         closeModal={this.closeModal}
-        saveBucketlist={this.saveBucketlist}/>
+        editing={false}
+        saveBucketlist={this.saveBucketlist}
+        />
+    );
+  }
+
+  renderEditModal() {
+    return (
+      <BucketListModal
+        showModal={this.state.showEditModal}
+        closeModal={this.closeModal}
+        editing={true}
+        editBucketlist={this.editBucketlist}
+        bucketlist={this.state.editBucketlist}
+        />
     );
   }
 
@@ -93,15 +106,6 @@ class BucketListsPage extends React.Component {
     )
   }
 
-  renderEditModal() {
-    return (
-      <EditBucketList
-        showModal={this.state.showEditModal}
-        closeModal={this.closeModal}
-        editFunc={this.editBucketlist}
-        editBucketlist={this.state.editBucketlist}/>
-    );
-  }
 
   render() {
     return (
