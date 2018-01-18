@@ -106,7 +106,7 @@ class BucketListsPage extends React.Component {
     )
   }
 
-
+  
   render() {
     return (
       <div>
@@ -129,7 +129,9 @@ class BucketListsPage extends React.Component {
           <tbody>
             {this.props.bucketlists.slice(0).reverse().map((bucketlist) =>
               <tr key={bucketlist.bucketlist_id}>
-                <td>{bucketlist.title} <Badge>{ bucketlist.items.length}</Badge></td>
+                <td>
+                  {bucketlist.title} <Badge >{`${bucketlist.items.filter(item => item.status === true).length} / ${bucketlist.items.length}`}</Badge>
+                </td>
                 <td>{moment(bucketlist.date_created).format('ll')}</td>
                 <td className="pull-right">
                   <ButtonToolbar>
