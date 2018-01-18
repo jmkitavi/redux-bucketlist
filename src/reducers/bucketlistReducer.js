@@ -35,7 +35,6 @@ export default function bucketlistReducer(state = initialState.bucketlists, acti
 
 
     case types.EDIT_BUCKETLIST_ITEM_SUCCESS:
-      console.log(action)
       return state.map(bucketlist => {
         if (bucketlist.bucketlist_id === action.item.bucketlist_id) {
           return {

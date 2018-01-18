@@ -23,7 +23,6 @@ class ItemsAPI {
     const url = baseUrl + bucketlist_id + "/items/"
     return axios.post(url, item, config())
     .then(response => {
-      console.log(response)
       return response.data.item
     })
     .catch(error => {
@@ -35,7 +34,6 @@ class ItemsAPI {
     const url = baseUrl + item.bucketlist_id + "/items/" + item.item_id
     return axios.put(url, item, config())
     .then(response => {
-      console.log(response)
       return response
     })
     .catch(error => {
