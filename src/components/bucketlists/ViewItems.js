@@ -99,8 +99,8 @@ class ViewItems extends React.Component {
             <td>{item.item_name}</td>
             <td>
             <Toggle
-              on={"DONE"}
-              off={"PENDING"}
+              on={<div>Done <span className="glyphicon glyphicon-ok"></span></div>}
+              off={<div>Pending <span className="glyphicon glyphicon-time"></span></div>}
               onstyle="success"
               offstyle="warning"
               active={item.status}
