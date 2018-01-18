@@ -30,7 +30,8 @@ class BucketlistAPI {
   static saveBucketlist(bucketlist) {
     return axios.post(url, bucketlist, config())
     .then(response => {
-      return response
+    console.log(response)
+      return response.data.bucketlist
     })
     .catch(error => {
       return error

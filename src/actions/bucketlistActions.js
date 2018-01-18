@@ -31,8 +31,8 @@ export function saveBucketlist(bucketlist) {
   return dispatch => {
     return BucketlistAPI.saveBucketlist(bucketlist)
     .then(savedBucketlist => {
-      toastr.success(`BucketList ${bucketlist.title} added successfully`)
-      dispatch(saveBucketlistSuccess(bucketlist))
+      toastr.success(`BucketList ${savedBucketlist.title} added successfully`)
+      dispatch(saveBucketlistSuccess(savedBucketlist))
     }).catch(error => console.log(error))
   }
 }
