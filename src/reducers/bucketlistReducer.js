@@ -18,8 +18,7 @@ export default function bucketlistReducer(state = initialState.bucketlists, acti
 
     case types.EDIT_BUCKETLIST_SUCCESS:
       return [
-        ...state.filter(bucketlist => bucketlist.bucketlist_id !== action.bucketlist.bucketlist_id),
-        action.bucketlist
+        ...state.map(bucketlist => bucketlist.bucketlist_id === action.bucketlist.bucketlist_id ? action.bucketlist : bucketlist)
       ]
 
     case types.SAVE_BUCKETLIST_ITEM_SUCCESS:
@@ -39,7 +38,7 @@ export default function bucketlistReducer(state = initialState.bucketlists, acti
         if (bucketlist.bucketlist_id === action.item.bucketlist_id) {
           return {
             ...bucketlist,
-            items: [ ...bucketlist.items.filter(item => item.item_id !== action.item.item_id), action.item]
+            items: [ ...bucketlist.items.map(item => item.item_id === action.item.item_id ? action.item : item)]
           }
         }
         return bucketlist
