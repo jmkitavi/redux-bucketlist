@@ -85,7 +85,7 @@ class BucketListModal extends React.Component {
   }
 }
 
-BucketListModal.PropTypes = {
+BucketListModal.propTypes = {
   showModal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   editing: PropTypes.bool.isRequired,

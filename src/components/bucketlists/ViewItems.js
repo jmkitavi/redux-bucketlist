@@ -180,7 +180,7 @@ class ViewItems extends React.Component {
   }
 }
 
-ViewItems.PropTypes = {
+ViewItems.propTypes = {
   showModal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   viewBucketlist: PropTypes.object.isRequired,

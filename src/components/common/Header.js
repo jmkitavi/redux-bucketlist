@@ -23,7 +23,7 @@ class Header extends Component {
     )
   }
 }
-Header.PropTypes = {
+Header.propTypes = {
   user: PropTypes.bool.isRequired
 };
 
