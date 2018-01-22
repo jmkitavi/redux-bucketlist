@@ -52,7 +52,7 @@ class BucketListModal extends React.Component {
           <form onSubmit={this.mySave} >
             <div className="form-group">
               <label htmlFor="Title" className="control-label">Title</label>
-              <input type="title" value={this.state.bucketlist.title} name="title" className="form-control" placeholder="Enter Title" onChange={this.handleChange} required /> 
+              <input type="text" value={this.state.bucketlist.title} name="title" className="form-control" placeholder="Enter Title" onChange={this.handleChange} required /> 
             </div>
             <div className="form-group">
               <label htmlFor="Description">Description</label>
