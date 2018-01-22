@@ -10,10 +10,10 @@
     "moment": "^2.19.3",
     "process": "^0.11.10",
     "prop-types": "^15.6.0",
-    "react": "15.3.0",
+    "react": "16.2.0",
     "react-bootstrap": "^0.31.5",
     "react-bootstrap-toggle": "^2.2.5",
-    "react-dom": "^16.2.0",
+    "react-dom": "16.2.0",
     "react-redux": "^5.0.6",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
@@ -24,6 +24,9 @@
     "toastr": "^2.1.2"
   },
   "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "react-test-renderer": "^16.2.0",
     "react-scripts": "1.0.16"
   },
   "scripts": {
