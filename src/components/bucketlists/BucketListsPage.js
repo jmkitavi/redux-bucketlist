@@ -101,8 +101,7 @@ class BucketListsPage extends React.Component {
       <ViewItems
         showModal={this.state.showViewModal}
         closeModal={this.closeModal}
-        viewBucketlist={bucketlist}
-        deleteItem={this.deleteItem}/>
+        viewBucketlist={bucketlist}/>
     )
   }
 

@@ -183,8 +183,7 @@ class ViewItems extends React.Component {
 ViewItems.propTypes = {
   showModal: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
-  viewBucketlist: PropTypes.object.isRequired,
-  deleteItem: PropTypes.func.isRequired
+  viewBucketlist: PropTypes.object.isRequired
 }
 
 // mapping actions to props
