@@ -21,18 +21,17 @@ class LoginPage extends React.Component {
     event.preventDefault();
     UserAPI.loginUser(this.state.username, this.state.password)
       .then(response => {
-        if (response.status >= 400 && response.status < 500 ) {
-          toastr.error(response.data.error);
-        } else {
+        if (response.status == 200) {
           localStorage.setItem('Authorization', response.data.Authorization);
           this.props.dispatch(userActions.checkLogin());
           toastr.success('Login Success');
           return this.props.history.push('/');
-        }
+        } else {
+          return toastr.error(response.data.message);
+        } 
       })
       .catch(error => {
-        console.log(error)
-        return toastr.error('Login Failed');
+        return toastr.error("Login Failed");
       })
   }
 

@@ -21,12 +21,19 @@ class UserAPI {
   }
 
   static loginUser(username, password) {
-    return axios.post(loginUrl, { username, password })
+    return axios.post(
+      loginUrl,
+      { username, password },
+      { validateStatus: (status) => {
+        return status == 200 
+        }
+      }
+    )
     .then(response => {
       return response
     })
     .catch(error => {
-      return error
+      return error.response
     });
   }
 
